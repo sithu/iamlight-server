@@ -1,18 +1,14 @@
 require("coffee-script")
-
+# Setup Express.js:
 global.express = require 'express'
 eco = require 'eco'
 http = require 'http'
 path = require 'path'
 
-###
-creating server
-###
+# Creating server
 global.app = app = express.createServer()
 
-###
-server configuration
-###
+# server configuration
 app.configure ->
     app.set 'views', "#{__dirname}/views"
     app.set 'view engine', 'eco'
@@ -26,12 +22,16 @@ app.configure ->
     app.use app.router
     app.use express.static(path.join(__dirname, 'public'))
     app.use express.errorHandler(dumpExceptions: true, showStack: true)
-    
-require("#{__dirname}/controllers/home_controller")
 
-###
-run server
-###
+# Set up the Database: 
+require("#{__dirname}/models/database")
+require("#{__dirname}/models/application")
+
+# Set up routing to all controllers:
+require("#{__dirname}/controllers/home_controller")
+require("#{__dirname}/controllers/application_controller")
+
+# run server
 port = process.env.PORT or 3000
 app.listen port
-console.log "Server is starting on port:#{port}"
+console.log "Server is starting on port %d in %s mode…", port, app.settings.env

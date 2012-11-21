@@ -8,6 +8,7 @@
   "dependencies": {
     "coffee-script":"~1.1.3",
     "express":"~2.5.1",
-    "eco":"1.1.0-rc-1"
+    "eco":"1.1.0-rc-1",
+    "mongoose":"3.4.0"
   }
 }
